@@ -19,11 +19,6 @@ namespace GhostToBlogifier
                 .Enrich.FromLogContext()
                 .WriteTo.RollingFile("Logs/{Date}.txt", LogEventLevel.Warning)
                 .CreateLogger();
-
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.RollingFile("Logs/{Date}.txt", LogEventLevel.Warning)
-                .CreateLogger();
         }
 
         public void ConfigureServices(IServiceCollection services)

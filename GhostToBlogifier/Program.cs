@@ -24,10 +24,11 @@ namespace GhostToBlogifier
             var export = JsonConvert.DeserializeObject<GhostExport.GhostExport>(ghostbackup);
             foreach (var db in export.db)
             {
-                var postItem = new PostItem();
+                
                 var posts = db.data.posts.Where(p => p.page == 0).ToArray();
                 foreach (var post in posts)
                 {
+                    var postItem = new PostItem();
                     string[] tags = GetTags(db, post);
                     postItem.Content = post.html;
                     postItem.Description = post.title;
@@ -36,7 +37,7 @@ namespace GhostToBlogifier
                     postItem.Slug = post.slug;
                     postItem.Title = post.title;
                     if (post.published_at != null) postItem.Published = DateTime.Parse(post.published_at);
-                    if (post.feature_image != null) postItem.Cover = post.feature_image;
+                    postItem.Cover = post.feature_image;
                     var save = await postRepository.SaveItem(postItem);
                     Console.WriteLine($"Adding post: {post.title}");
                 }
